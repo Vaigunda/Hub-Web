@@ -37,7 +37,7 @@ const HubSpot = () => {
       ) : pageContent ? (
         <div className="iframe-container">
           <iframe
-            src={pageContent.published_url}
+            src={pageContent.published_url.replace('http://', 'https://')}
             title="HubSpot Page"
             width="100%"
             height="800px"
