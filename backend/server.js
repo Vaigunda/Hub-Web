@@ -6,7 +6,9 @@ const axios = require('axios');
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());  // Enable CORS for all routes
+app.use(cors({
+    origin: 'https://hub-web-1.onrender.com',  // Frontend URL
+}));// Enable CORS for all routes
 
 app.get('/api/hubspot', async (req, res) => {
   const slug = req.query.slug; // Fetch the slug from query parameters
