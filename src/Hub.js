@@ -9,7 +9,7 @@ const HubSpot = () => {
   useEffect(() => {
     const fetchHubSpotPage = async () => {
       const slug = 'testing-page'; // Hardcoded slug for testing
-      const apiUrl = `http://localhost:3001/api/hubspot?slug=${slug}`; // Make request to your backend
+      const apiUrl = `https://hub-web-sca2.onrender.com/api/hubspot?slug=${slug}`; // Make request to your backend
 
       try {
         const response = await axios.get(apiUrl);
