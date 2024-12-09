@@ -1,0 +1,80 @@
+/* Container styling */
+.container {
+    display: flex;
+    align-items: end; /* Centers vertically */
+    justify-content: center; /* Centers horizontally */
+    height: 100vh; /* Makes the container take full viewport height */
+    background-color: #f3f4f6;
+    background-image: url('../assets/bg\ image.jpg');
+    padding: 45px;
+}
+
+/* Form styling */
+.login-form {
+    width: 500px; /* You can adjust the width as needed */
+    height: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-form h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Input fields */
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Button styling */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #4b6cb7, #182848);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    margin-top: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background: linear-gradient(90deg, #182848, #4b6cb7);
+}
+
+/* Signup link styling */
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.signup-link a {
+    color: #4b6cb7;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Icon styling */
+.logo-icon {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 10px;
+}

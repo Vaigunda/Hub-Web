@@ -1,0 +1,43 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.table {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 70vh;
+}
+
+th {
+  padding: 15px;
+}
+
+tr,
+td {
+  padding: 15px;
+}
+
+.cartHeader {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+}
+
+.address {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+}
+
+.head-1 {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.footer {
+  align-items: center;
+}
