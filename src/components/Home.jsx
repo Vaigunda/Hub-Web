@@ -8,17 +8,49 @@ const Home = () => {
   const [token, setToken] = useState(null);
   const [cartData, setCartData] = useState(null);
   const [cartDetails, setCartDetails] = useState(null);
+  const [pageDetails, setPageDetails] = useState(null);
+  const [buttonArray, setButtonArrya] = useState(null);
+  const [buttonCol, setButtonColor] = useState(null);
+  const pageDetailsArray = [];
+  const buttonTxt = [];
 
   useEffect(() => {
     const fetchHubSpotPage = async () => {
       const slug = "cart_page";
-      const apiUrl = `http://localhost:3001/api/hubspot?slug=${slug}`;
+      const apiUrl = `https://hub-web-sca2.onrender.com/api/hubspot?slug=${slug}`;
 
       try {
         const response = await axios.get(apiUrl);
         const fetchedData = response.data.objects[0];
 
         setPageData(fetchedData);
+
+        const nestedData = fetchedData?.layout_sections?.dnd_area;
+        const cartId = nestedData?.rows[0][0].rows[0][0].params.value;
+        const continueShopping = nestedData?.rows[0][0].rows[1][0].params.value;
+        const address = nestedData?.rows[1][0].rows[0][0].params.value;
+
+        pageDetailsArray.push(cartId);
+        pageDetailsArray.push(continueShopping);
+        pageDetailsArray.push(address);
+        setPageDetails(pageDetailsArray);
+
+        const btn1 =
+          nestedData?.rows[1][0]?.rows[1][0]?.rows[0][0]?.params?.button_text;
+        const btn2 =
+          nestedData?.rows[1][0]?.rows[1][4]?.rows[0][0]?.params?.button_text;
+        const btn3 =
+          nestedData?.rows[1][0]?.rows[1][8]?.rows[0][0]?.params?.button_text;
+
+        const buttonColor =
+          nestedData?.rows[1][0]?.rows[1][0]?.rows[0][0]?.params?.styles
+            ?.background?.color?.color;
+        setButtonColor(buttonColor);
+
+        buttonTxt.push(btn1);
+        buttonTxt.push(btn2);
+        buttonTxt.push(btn3);
+        setButtonArrya(buttonTxt);
       } catch (error) {
         console.error(
           "Error fetching page content from HubSpot:",
@@ -48,7 +80,7 @@ const Home = () => {
           const response = await axios.get(apiUrl, config);
           setCartData(response.data.entries);
           setCartDetails(response.data);
-          console.log(response.data.entries);
+          // console.log(response.data.entries);
         } catch (err) {
           console.log(err.message);
         }
@@ -58,28 +90,31 @@ const Home = () => {
     getCart();
   }, [token]);
 
-  if (!page && !cartData) {
+  if (!page || !cartData) {
     return <div>Loading...</div>;
   }
 
-  console.log("cartData", cartData);
+  console.log("cartDetails", cartDetails);
 
   return (
     <div className="cart">
       <div className="Header">
-        <div dangerouslySetInnerHTML={{ __html: page.head_html }} />
+        <div dangerouslySetInnerHTML={{ __html: page?.head_html }} />
       </div>
 
       <div className="cartHeader">
-        <p className="head-1">Cart | ID:{cartDetails?.code}</p>
-        <p className="head-2">{`< Continue Shopping`}</p>
+        <p className="head-1">{pageDetails[0]}</p>
+        <p className="head-2">{pageDetails[1]}</p>
       </div>
 
       <div className="address">
-        <p>
-          Delivery Address: (0000129795)99 SEAVIEW BLVD,PORT
-          WASHINCTON,NY,11050-4606
-        </p>
+        <p>{pageDetails[2]}</p>
+      </div>
+
+      <div className="btnFlex">
+        <button style={{ backgroundColor: buttonCol }}>{buttonArray[0]}</button>
+        <button style={{ backgroundColor: buttonCol }}>{buttonArray[1]}</button>
+        <button style={{ backgroundColor: buttonCol }}>{buttonArray[2]}</button>
       </div>
 
       <div className="table">
@@ -126,8 +161,25 @@ const Home = () => {
         </table>
       </div>
 
+      <div className="total">
+        <div className="subTotal">
+          <p>Order Subtotal</p>
+          <p>{cartDetails?.totalPrice?.value}</p>
+        </div>
+        <div className="grantTotal">
+          <p>Estimated Total:</p>
+          <p>{cartDetails?.totalPriceWithTax.value}</p>
+        </div>
+      </div>
+
+      <div className="checkout">
+        <button style={{ backgroundColor: buttonCol }}>
+          Proceed TO Checkout
+        </button>{" "}
+      </div>
+
       <div className="footer">
-        <div dangerouslySetInnerHTML={{ __html: page.footer_html }} />
+        <div dangerouslySetInnerHTML={{ __html: page?.footer_html }} />
       </div>
     </div>
   );
